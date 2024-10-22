@@ -1,0 +1,56 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the data
+data = pd.read_csv('Diabetes.csv')
+
+# 1. Histogram for numerical columns
+plt.figure(figsize=(10, 6))
+data['Glucose'].hist(bins=20, color='skyblue', edgecolor='black')
+plt.title('Glucose Level Distribution')
+plt.xlabel('Glucose')
+plt.ylabel('Frequency')
+plt.show()
+
+# 2. Boxplot to detect outliers in numerical columns
+plt.figure(figsize=(10, 6))
+sns.boxplot(x=data['BMI'], color='lightgreen')
+plt.title('BMI Boxplot')
+plt.xlabel('BMI')
+plt.show()
+
+# 3. Scatter plot to visualize relationships
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='Glucose', y='Insulin', hue='Outcome', data=data, palette='coolwarm')
+plt.title('Glucose vs Insulin Levels (Colored by Outcome)')
+plt.xlabel('Glucose')
+plt.ylabel('Insulin')
+plt.show()
+
+# 4. Pairplot for multivariate relationships
+sns.pairplot(data[['Glucose', 'BMI', 'Age', 'Outcome']], hue='Outcome', palette='coolwarm')
+plt.title('Pairplot of Selected Features')
+plt.show()
+
+# 5. Heatmap for correlation between numerical variables
+plt.figure(figsize=(10, 6))
+sns.heatmap(data.corr(), annot=True, cmap='Blues', linewidths=0.5)
+plt.title('Correlation Heatmap')
+plt.show()
+
+# 6. Countplot for categorical data
+plt.figure(figsize=(10, 6))
+sns.countplot(x='Outcome', data=data, palette='Set2')
+plt.title('Count of Diabetic and Non-Diabetic Individuals')
+plt.xlabel('Outcome (0 = No, 1 = Yes)')
+plt.ylabel('Count')
+plt.show()
+
+# 7. Violin plot to show distribution by class
+plt.figure(figsize=(10, 6))
+sns.violinplot(x='Outcome', y='BMI', data=data, palette='muted')
+plt.title('BMI Distribution by Outcome')
+plt.xlabel('Outcome (0 = No, 1 = Yes)')
+plt.ylabel('BMI')
+plt.show()
